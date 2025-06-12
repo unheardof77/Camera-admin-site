@@ -48,3 +48,9 @@ export interface signTokenProp {
     username: string
     _id: mongoose.Types.ObjectId
 }
+
+export interface File {
+    filename: string;
+    mimetype: string;
+    encoding: string;
+}
