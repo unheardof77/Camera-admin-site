@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
 };
 
+
+
 db.once('open', async () => {
     const { url } = await startStandaloneServer(server, {
         listen: { port: 4000 },

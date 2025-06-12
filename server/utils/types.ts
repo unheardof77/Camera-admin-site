@@ -5,6 +5,20 @@ export interface signupArgs {
     password: string;
 }
 
+export interface AdminArgs {
+    username: string;
+    password: string;
+}
+
+export interface AdminInt {
+    username: string;
+    password: string;
+    _id: mongoose.Types.ObjectId;
+}
+export interface AdminMethods {
+    isCorrectPassword(password:string): boolean;
+};
+
 export interface userInt {
     username:string;
     password:string;

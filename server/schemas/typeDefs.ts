@@ -12,6 +12,12 @@ const typeDefs = `#graphql
         groupName: String
         }
 
+    type Admin {
+        _id: ID
+        username: String
+        password: String
+        }
+
     type Auth {
         token: ID
         user: User
@@ -19,10 +25,13 @@ const typeDefs = `#graphql
 
     type Query {
         getUser: User
+        getAllAdmins: [Admin]
     }
+
     type Mutation {
         signup(username: String!, password: String!): Auth
         login(username: String!, password: String!): Auth
+        createAdmin(username: String!, password: String!): Admin
     }
 `;
 

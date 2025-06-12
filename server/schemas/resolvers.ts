@@ -1,12 +1,17 @@
 import  User  from '../models/User';
-import { Context, signupArgs } from '../utils/types';
-import { signToken } from '../utils/auth';
+import Admin from '../models/Admin';
 import { GraphQLError } from 'graphql';
+import { signToken } from '../utils/auth';
+
+import { Context, signupArgs, AdminArgs } from '../utils/types';
 
 const resolvers = {
     Query: {
                 getUser: async (_:any, __:any, context:Context) => {
             return await User.findById(context.user._id)
+        },
+        getAllAdmins: async () => {
+            return await Admin.find({});
         }
     }, 
     Mutation: {
@@ -26,6 +31,10 @@ const resolvers = {
             }
             const token = signToken(user);
             return {token, user};
+        },
+        createAdmin: async (_:any, args:AdminArgs) => {
+            const admin = await Admin.create(args);
+            return admin;
         }
     }
 
