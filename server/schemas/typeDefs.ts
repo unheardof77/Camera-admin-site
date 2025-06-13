@@ -24,6 +24,11 @@ const typeDefs = `#graphql
             token: ID
             user: User
             }
+        
+    type AdminAuth {
+            token: ID
+            admin: Admin
+            }
             
         type File {
             filename: String! 
@@ -40,7 +45,7 @@ const typeDefs = `#graphql
     type Mutation {
         signup(username: String!, password: String!): Auth
         login(username: String!, password: String!): Auth
-        createAdmin(username: String!, password: String!): Admin
+        createAdmin(username: String!, password: String!, adminPassword: String!): AdminAuth
         singleUpload(file: Upload!): File!
     }
 `;

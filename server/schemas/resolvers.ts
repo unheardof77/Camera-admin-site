@@ -73,9 +73,14 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-        createAdmin: async (_:any, args:AdminArgs) => {
-            const admin = await Admin.create(args);
-            return admin;
+        createAdmin: async (_:any, {adminPassword, username, password}:AdminArgs) => {
+            if(adminPassword == process.env.ADMIN_PASSWORD){
+                const admin = await Admin.create({username, password});
+                const token = signToken(admin);
+                return {token, admin};
+            } else {
+                throw new GraphQLError('Incorrect admin password');
+            }
         },
         singleUpload: async (_:any, {file }:any) =>{
             const db = connec.db;

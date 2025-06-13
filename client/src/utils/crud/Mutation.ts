@@ -18,3 +18,15 @@ export const LOGIN = gql`
         }
     }
 `
+
+export const ADMIN_SIGNUP = gql`
+    mutation Mutation($username: String!, $password: String!, $adminPassword: String!) {
+  createAdmin(username: $username, password: $password, adminPassword: $adminPassword) {
+    admin {
+      username
+      password
+      _id
+    }
+  }
+}
+`
