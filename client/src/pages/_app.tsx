@@ -10,7 +10,7 @@ const createApolloClient = (cache = {}) => {
     return new ApolloClient({
         cache: new InMemoryCache().restore(cache),
         link: createUploadLink({
-            uri: "/graphql",
+            uri: "http://localhost:4000/graphql",
             headers: {
                 "Apollo-Require-Preflight": "true"
             }
