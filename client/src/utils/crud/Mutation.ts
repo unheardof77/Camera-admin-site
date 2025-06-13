@@ -1,11 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const UPLOAD_FILE = gql`
-    mutation UploadFile($file: Upload!) {
-        uploadFile(file: $file) {
-            filename
-        }
-    }
+mutation Mutation($file: Upload!) {
+  singleUpload(file: $file) {
+    filename
+  }
+}
 `
 
 export const LOGIN = gql`

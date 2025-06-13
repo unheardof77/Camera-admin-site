@@ -1,4 +1,5 @@
 const typeDefs = `#graphql
+    scalar Upload
     type User {
         _id: ID
         username: String
@@ -18,20 +19,29 @@ const typeDefs = `#graphql
         password: String
         }
 
-    type Auth {
-        token: ID
-        user: User
-    }
+        
+        type Auth {
+            token: ID
+            user: User
+            }
+            
+        type File {
+            filename: String! 
+            mimetype: String!
+            encoding: String!
+        }
 
     type Query {
         getUser: User
         getAllAdmins: [Admin]
+        getOneVideo(filename: String!): String
     }
 
     type Mutation {
         signup(username: String!, password: String!): Auth
         login(username: String!, password: String!): Auth
         createAdmin(username: String!, password: String!): Admin
+        singleUpload(file: Upload!): File!
     }
 `;
 
