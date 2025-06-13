@@ -8,6 +8,7 @@ export interface signupArgs {
 export interface AdminArgs {
     username: string;
     password: string;
+    adminPassword: string;
 }
 
 export interface AdminInt {
