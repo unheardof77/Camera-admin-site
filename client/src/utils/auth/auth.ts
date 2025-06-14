@@ -1,3 +1,5 @@
+"use client";
+
 import {jwtDecode} from 'jwt-decode'
 
 interface decodeOBJ {
@@ -36,4 +38,11 @@ class AuthService {
         localStorage.removeItem('id_token');
         window.location.assign('/');
     }
+    orgOwner() {
+        const tmp = this.getProfile();
+        console.log(tmp);
+        return tmp;
+    }
 }
+
+export default new AuthService();

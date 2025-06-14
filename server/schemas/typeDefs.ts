@@ -47,6 +47,8 @@ const typeDefs = `#graphql
         login(username: String!, password: String!): Auth
         createAdmin(username: String!, password: String!, adminPassword: String!): AdminAuth
         singleUpload(file: Upload!): File!
+        createOrgOwner(username: String!, password: String!, orgName: String!): User
+        createEmployee(username: String!, password: String!): User
     }
 `;
 

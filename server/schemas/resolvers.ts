@@ -1,18 +1,17 @@
 import  User  from '../models/User';
 import Admin from '../models/Admin';
+import Group from '../models/Group';
 import { GraphQLError } from 'graphql';
 import { signToken } from '../utils/auth';
 
-import { Context, signupArgs, AdminArgs, File } from '../utils/types';
+import { Context, signupArgs, AdminArgs, File, createOrgOwnerArgs, CreateEmployeeArgs, GetOneVideoArgs } from '../utils/types';
 
 import {GraphQLUpload} from 'graphql-upload-ts';
 import connec from '../config/connection';
 import mongoose from 'mongoose';
-import { GridFSBucketReadStream } from 'mongodb';
 
-interface getOneVideoArgs {
-    filename: string;
-}
+
+
 
 const resolvers = {
     Upload: GraphQLUpload,
@@ -23,7 +22,7 @@ const resolvers = {
             getAllAdmins: async () => {
                 return await Admin.find({});
             },
-            getOneVideo: async (_:any, {filename}:getOneVideoArgs) => {
+            getOneVideo: async (_:any, {filename}:GetOneVideoArgs) => {
                 const db = connec.db;
                 if(!db){
                     throw new GraphQLError('Database connection is not established');
@@ -104,6 +103,29 @@ const resolvers = {
                 console.log(`uploaded successfully`);
             });
             return {filename, mimetype, encoding}
+        },
+        createOrgOwner: async (_:any,{username, password, orgName}:createOrgOwnerArgs) => {
+            const newGroup = await Group.create({groupName: orgName});
+            const newOrgOwner = await User.create({username, password, isOrgOwner: true, groupId: newGroup._id});
+            if(!newOrgOwner) {
+                throw new GraphQLError('Error creating organization owner');
+            }
+            return newOrgOwner;
+        }, 
+        createEmployee: async (_:any, {username, password}:CreateEmployeeArgs, context:Context ) => {
+            try{
+                const groupId = context.user.groupId;
+                if(!groupId) {
+                    throw new GraphQLError('You must be an organization owner to create employees');
+                }
+                const newEmployee = await User.create({username, password, groupId});
+                if(!newEmployee) {
+                    throw new GraphQLError('Error creating employee');
+                }
+                return newEmployee
+            }catch(err) {
+                throw new GraphQLError('Error creating employee'+ err );
+            }
         }
     }
 

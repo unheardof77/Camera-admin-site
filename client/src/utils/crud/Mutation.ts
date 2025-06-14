@@ -9,14 +9,15 @@ mutation Mutation($file: Upload!) {
 `
 
 export const LOGIN = gql`
-    mutation Mutation($username: String!, $password: String!) {
-        login(username: $username, password: $password) {
-            token
-            user {
-                _id
-            }
-        }
+mutation Mutation($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    token
+    user {
+      _id
+      username
     }
+  }
+}
 `
 
 export const ADMIN_SIGNUP = gql`
@@ -27,6 +28,21 @@ export const ADMIN_SIGNUP = gql`
       password
       _id
     }
+  }
+}
+`
+export const CREATE_ORG_OWNER = gql`
+mutation Mutation($username: String!, $password: String!, $orgName: String!) {
+  createOrgOwner(username: $username, password: $password, orgName: $orgName) {
+    username
+  }
+}
+`
+
+export const CREATE_EMPLOYEE_LOGIN = gql`
+mutation Mutation($username: String!, $password: String!) {
+  createEmployee(username: $username, password: $password) {
+    _id
   }
 }
 `
