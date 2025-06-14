@@ -20,6 +20,7 @@ async function startServer() {
         resolvers, 
         csrfPrevention: true,
         cache: 'bounded',
+        context: authMiddleware
     });
     await server.start();
     const app:any = express();

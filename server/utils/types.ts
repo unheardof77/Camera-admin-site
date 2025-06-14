@@ -11,6 +11,21 @@ export interface AdminArgs {
     adminPassword: string;
 }
 
+export interface CreateEmployeeArgs{
+    username: string;
+    password: string;
+}
+
+export interface createOrgOwnerArgs {
+    username: string;
+    password: string;
+    orgName: string;
+}
+
+export interface GetOneVideoArgs {
+    filename: string;
+}
+
 export interface AdminInt {
     username: string;
     password: string;

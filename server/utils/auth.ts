@@ -11,7 +11,7 @@ const expiration = '2h';
 
 export const authMiddleware = function ({ req }: authMiddlewareProp) {
     let token = req.headers.authorization;
-
+    console.log(token)
     if (req.headers.authorization) {
         token = token.split(' ').pop().trim();
     };
@@ -19,13 +19,14 @@ export const authMiddleware = function ({ req }: authMiddlewareProp) {
     if (!token) {
         return req;
     };
-
+    
     try {
         const   {data}:any   = jwt.verify(token, secret, { maxAge: expiration });
         console.log(data);
         req.user = data;
-    } catch {
-        console.log('Invalid token');
+    } catch(err) {
+        console.log(token);
+        console.log('Invalid token', err);
     }
 
     return req;
