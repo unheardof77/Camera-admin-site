@@ -15,6 +15,16 @@ export default function VideoRender({ vidStr }: { vidStr: string }) {
                 <source src={videoUrl} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
+
+            <div className="flex justify-center mt-4">
+                <a
+                    download
+                    href={videoUrl}
+                    className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+                >
+                    Download
+                </a>
+            </div>
         </div>
 
     );
