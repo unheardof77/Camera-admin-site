@@ -40,6 +40,7 @@ const typeDefs = `#graphql
         getUser: User
         getAllAdmins: [Admin]
         getOneVideo(filename: String!): String
+        getAllVidFilenames: [String]
     }
 
     type Mutation {
