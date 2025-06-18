@@ -1,10 +1,49 @@
+
 import '@/app/globals.css';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+
+import AuthService from '@/utils/auth/auth'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [orgOwner, setOrgOwner] = useState(false);
+    // useEffect(()=>{
+    //     setLoggedIn(AuthService.loggedIn());
+    //     const orginfo:any = AuthService.getProfile();
+    //     console.log(orginfo)
+    //     setOrgOwner(orginfo.data.isOrgOwner)
+    // }, [])
+
+    const whatLinks = () =>{
+
+        if(loggedIn && orgOwner){
+            return(
+                <>
+                    <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
+                    <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
+                    <li><Link href="/createEmployees" className="hover:text-gray-300">Create Employees</Link></li>
+                </>
+            )
+        }else if (loggedIn) {
+            return(
+                <>
+                    <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
+                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
+                </>
+            )
+        }else {
+            return(
+                <>
+                    <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
+                    <li><Link href="/signup" className="hover:text-gray-300">Sign Up</Link></li>
+                </>
+            )
+        }
+    }
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-100 text-gray-800">
@@ -17,12 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         </button>
                     </div>
                     <ul className="hidden sm:flex space-x-4 text-sm">
-                        <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                        <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
-                        <li><Link href="/createEmployees" className="hover:text-gray-300">Create Employees</Link></li>
-                        <li><Link href="/createOrgOwner" className="hover:text-gray-300">Create Organization owner</Link></li>
-                        <li><Link href="/signup" className="hover:text-gray-300">Sign Up</Link></li>
-                        <li><Link href="/login" className="hover:text-red-400">Login</Link></li>
+                        {whatLinks()}
                     </ul>
                 </nav>
                 {menuOpen && (

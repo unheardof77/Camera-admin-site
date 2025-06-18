@@ -24,8 +24,9 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             await login({ variables: { username, password } });
-            AuthService.login(data?.login.token)
-
+            console.log(data);
+            // AuthService.login(data?.login.token)
+            // window.location.assign("/")
         } catch (err) {
             console.error("something went wrong", err)
         }

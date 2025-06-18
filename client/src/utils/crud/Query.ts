@@ -5,3 +5,9 @@ export const GET_VIDEO_BY_NAME = gql`
         getOneVideo(filename: $filename)
     }
 `
+
+export const GET_ALL_VIDEOS = gql`
+    query Query {
+        getAllVidFilenames
+    }
+`
