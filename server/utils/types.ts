@@ -53,16 +53,21 @@ export interface userMethods {
 };
 
 export interface Context {
-    user: userInt;
+    userData: userInt;
+    res: any;
+    req: any;
 }
 
 export interface authMiddlewareProp {
     req: any
+    res: any
 }
 
 export interface signTokenProp {
     username: string
     _id: mongoose.Types.ObjectId
+    isOrgOwner?: boolean
+    groupId?: mongoose.Types.ObjectId
 }
 
 export interface File {

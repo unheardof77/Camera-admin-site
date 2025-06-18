@@ -9,29 +9,35 @@ const expiration = '2h';
 
 
 
-export const authMiddleware = function ({ req }: authMiddlewareProp) {
-    let token = req.headers.authorization;
-    console.log(token)
-    if (req.headers.authorization) {
-        token = token.split(' ').pop().trim();
-    };
-
-    if (!token) {
-        return req;
-    };
-    
-    try {
-        const   {data}:any   = jwt.verify(token, secret, { maxAge: expiration });
-        console.log(data);
-        req.user = data;
-    } catch(err) {
-        console.log(token);
-        console.log('Invalid token', err);
+export const authMiddleware = function ({ req, res }: authMiddlewareProp) {
+    let cookie = req.cookies.authCookie;
+    console.log("cookie", cookie)
+    let userData;
+    if(cookie){
+        cookie = cookie.split(' ').pop().trim();
+    } else {
+        return {req,res}
     }
-
-    return req;
+    try {
+        const {data}:any = jwt.verify(cookie, secret, {maxAge: expiration})
+        userData = data;
+    } catch(err){
+        console.error('invalid token', err);
+    }
+    return {req, res, userData};
 }
-export const signToken = function ({ _id, username }:signTokenProp) {
-    const payload = { _id, username };
+
+export const sendCookie = function(res:any, token:string){
+    res.cookie('authCookie', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
+    })
+}
+
+
+export const signToken = function ({ _id, username, groupId, isOrgOwner = false }:signTokenProp) {
+    const payload = { _id, username, isOrgOwner, groupId  };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 }

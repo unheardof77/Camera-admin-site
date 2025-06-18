@@ -11,6 +11,8 @@ import connec from '../config/connection';
 import mongoose from 'mongoose';
 
 
+import { sendCookie } from '../utils/auth';
+
 
 
 
@@ -19,7 +21,7 @@ const resolvers = {
     Upload: GraphQLUpload,
     Query: {
         getUser: async (_: any, __: any, context: Context) => {
-            return await User.findById(context.user._id)
+            return await User.findById(context.userData._id)
         },
         getAllAdmins: async () => {
             return await Admin.find({});
@@ -70,15 +72,16 @@ const resolvers = {
                 arrOfFilenames.push(doc.filename);
             }
             return arrOfFilenames;
-        }
+        }, 
     },
     Mutation: {
-        signup: async (_: any, args: signupArgs) => {
+        signup: async (_: any, args: signupArgs, {res}:Context) => {
             const user = await User.create(args);
             const token = signToken(user);
+            sendCookie(res, token);
             return { token, user };
         },
-        login: async (_: any, { username, password }: signupArgs) => {
+        login: async (_: any, { username, password }: signupArgs, {res}:Context) => {
             const user = await User.findOne({ username });
             if (!user) {
                 throw new GraphQLError('No user found with this username');
@@ -88,6 +91,7 @@ const resolvers = {
                 throw new GraphQLError('Incorrect password');
             }
             const token = signToken(user);
+            sendCookie(res, token);
             return { token, user };
         },
         createAdmin: async (_: any, { adminPassword, username, password }: AdminArgs) => {
@@ -132,7 +136,7 @@ const resolvers = {
         },
         createEmployee: async (_: any, { username, password }: CreateEmployeeArgs, context: Context) => {
             try {
-                const groupId = context.user.groupId;
+                const groupId = context.userData.groupId;
                 if (!groupId) {
                     throw new GraphQLError('You must be an organization owner to create employees');
                 }
