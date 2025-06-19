@@ -4,22 +4,14 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-import AuthService from '@/utils/auth/auth'
-
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
     const [orgOwner, setOrgOwner] = useState(false);
-    // useEffect(()=>{
-    //     setLoggedIn(AuthService.loggedIn());
-    //     const orginfo:any = AuthService.getProfile();
-    //     console.log(orginfo)
-    //     setOrgOwner(orginfo.data.isOrgOwner)
-    // }, [])
 
     const whatLinks = () =>{
-
-        if(loggedIn && orgOwner){
+        
+        const loggedInStatus = false
+        if(loggedInStatus && orgOwner){
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
@@ -28,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <li><Link href="/createEmployees" className="hover:text-gray-300">Create Employees</Link></li>
                 </>
             )
-        }else if (loggedIn) {
+        }else if (loggedInStatus) {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>

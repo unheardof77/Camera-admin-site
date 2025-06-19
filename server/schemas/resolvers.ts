@@ -91,7 +91,7 @@ const resolvers = {
                 throw new GraphQLError('Incorrect password');
             }
             const token = signToken(user);
-            sendCookie(res, token);
+            sendCookie(res, token, true);
             return { token, user };
         },
         createAdmin: async (_: any, { adminPassword, username, password }: AdminArgs) => {

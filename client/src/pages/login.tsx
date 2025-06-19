@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { LOGIN } from "@/utils/crud/Mutation";
 import { useMutation } from "@apollo/client";
 
-import AuthService from "@/utils/auth/auth";
 
 
 export default function LoginPage() {
@@ -25,8 +24,6 @@ export default function LoginPage() {
         try {
             await login({ variables: { username, password } });
             console.log(data);
-            // AuthService.login(data?.login.token)
-            // window.location.assign("/")
         } catch (err) {
             console.error("something went wrong", err)
         }

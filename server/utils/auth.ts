@@ -27,13 +27,21 @@ export const authMiddleware = function ({ req, res }: authMiddlewareProp) {
     return {req, res, userData};
 }
 
-export const sendCookie = function(res:any, token:string){
+export const sendCookie = function(res:any, token:string, logThemIn:boolean = false){
     res.cookie('authCookie', token, {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
     })
+
+    if(logThemIn){
+        res.cookie('loggedIn', true, {
+            httpOnly: false,
+            secure:false, 
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
+        })
+    }
 }
 
 

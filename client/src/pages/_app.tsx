@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import  createUploadLink  from 'apollo-upload-client/createUploadLink.mjs';
-
+import { StateProvider } from '@/utils/globalState/GlobalState';
 
 
 const createApolloClient = (cache = {}) => {
@@ -25,13 +25,15 @@ const createApolloClient = (cache = {}) => {
 
 export default function MyApp({Component, pageProps}: AppProps) {
     
-
+    
 
     return (
         <ApolloProvider client={createApolloClient()}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <StateProvider>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </StateProvider>
         </ApolloProvider>
     )
 };
