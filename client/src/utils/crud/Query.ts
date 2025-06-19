@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const GET_VIDEO_BY_NAME = gql`
-    query Query($filename: String!) {
+    query One_Video($filename: String!) {
         getOneVideo(filename: $filename)
     }
 `
 
 export const GET_ALL_VIDEOS = gql`
-    query Query {
+    query All_Videos {
         getAllVidFilenames
     }
 `

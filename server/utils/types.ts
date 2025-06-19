@@ -56,6 +56,7 @@ export interface Context {
     userData: userInt;
     res: any;
     req: any;
+    loggedIn: boolean;
 }
 
 export interface authMiddlewareProp {

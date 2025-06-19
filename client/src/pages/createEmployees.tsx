@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 
-import AuthService from '@/utils/auth/auth';
 import { useMutation } from "@apollo/client";
 import { CREATE_EMPLOYEE_LOGIN } from "@/utils/crud/Mutation";
 
@@ -11,12 +10,6 @@ export default function CreateEmployeesPage(){
 
     const [createEmployeeLogin, {loading, error, data}] = useMutation(CREATE_EMPLOYEE_LOGIN, {variables: {username: empUser, password: empPass}});
 
-    useEffect(()=>{
-        //Add check to make sure there an organization owner
-        if(!AuthService.loggedIn()){
-            window.location.assign('/');
-        }
-    }, []);
 
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

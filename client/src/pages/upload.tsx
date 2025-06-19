@@ -1,14 +1,12 @@
 "use client";
 import UploadFile from "@/components/UploadFile"
 
-import AuthService from '@/utils/auth/auth';
+
 import { useEffect, useState } from "react";
 
 export default function UploadPage() {
-    const [loggedIn, setLoggedIn] = useState(false);
-    useEffect(() => {
-        setLoggedIn(AuthService.loggedIn());
-    }, [])
+    const [loggedIn, setLoggedIn] = useState(true);
+
     if (loggedIn) {
         return (
             <div className="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto mt-8 text-center">

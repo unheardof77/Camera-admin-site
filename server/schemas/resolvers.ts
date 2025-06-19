@@ -14,19 +14,17 @@ import mongoose from 'mongoose';
 import { sendCookie } from '../utils/auth';
 
 
-
-
-
 const resolvers = {
     Upload: GraphQLUpload,
     Query: {
-        getUser: async (_: any, __: any, context: Context) => {
-            return await User.findById(context.userData._id)
+        getUser: async (_: any, __: any, {userData}: Context) => {
+            return await User.findById(userData._id)
         },
         getAllAdmins: async () => {
             return await Admin.find({});
         },
         getOneVideo: async (_: any, { filename }: GetOneVideoArgs) => {
+
             const db = connec.db;
             if (!db) {
                 throw new GraphQLError('Database connection is not established');
@@ -57,7 +55,7 @@ const resolvers = {
             });
 
         },
-        getAllVidFilenames: async () => {
+        getAllVidFilenames: async (_:any, __:any) => {
             const db = connec.db;
             const arrOfFilenames: String[] = [];
             if (!db) {
@@ -134,9 +132,9 @@ const resolvers = {
             }
             return newOrgOwner;
         },
-        createEmployee: async (_: any, { username, password }: CreateEmployeeArgs, context: Context) => {
+        createEmployee: async (_: any, { username, password }: CreateEmployeeArgs, {userData}: Context) => {
             try {
-                const groupId = context.userData.groupId;
+                const groupId = userData.groupId;
                 if (!groupId) {
                     throw new GraphQLError('You must be an organization owner to create employees');
                 }
