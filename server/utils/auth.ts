@@ -10,6 +10,7 @@ const expiration = '2h';
 
 const routeAuthHelper = (operationname:string, loggedIn:boolean)=>{
     let allowUserThrough = false;
+    console.log(operationname, loggedIn)
     if(loggedIn){
         //protected routes
         switch(operationname){

@@ -3,35 +3,38 @@ import '@/app/globals.css';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import {useSession, signIn, signOut } from 'next-auth/react';
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [orgOwner, setOrgOwner] = useState(false);
+    const {data: session} = useSession();
 
     const whatLinks = () =>{
+        console.log(session)
         
-        const loggedInStatus = false
-        if(loggedInStatus && orgOwner){
+        if(session && session?.user?.isOrgOwner){
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
                     <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
                     <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
                     <li><Link href="/createEmployees" className="hover:text-gray-300">Create Employees</Link></li>
+                    <li><button onClick={()=> signOut()} >log out</button></li>
                 </>
             )
-        }else if (loggedInStatus) {
+        }else if(session)  {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
                     <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
                 </>
             )
-        }else {
+        } else {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/signup" className="hover:text-gray-300">Sign Up</Link></li>
+                    <li><button onClick={() => signIn()} >Login</button></li>
                 </>
             )
         }
@@ -53,12 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </nav>
                 {menuOpen && (
                     <ul className="sm:hidden mt-4 space-y-2 text-sm">
-                        <li><Link href="/" className="block hover:text-gray-300">Home</Link></li>
-                        <li><Link href="/upload" className="block hover:text-gray-300">Upload</Link></li>
-                        <li><Link href="/createEmployees" className="block hover:text-gray-300">Create Employees</Link></li>
-                        <li><Link href="/createOrgOwner" className="block hover:text-gray-300">Create Organization owner</Link></li>
-                        <li><Link href="/signup" className="block hover:text-gray-300">Sign Up</Link></li>
-                        <li><Link href="/login" className="block hover:text-red-400">Login</Link></li>
+                        {whatLinks()}
                     </ul>
                 )}
             </header>

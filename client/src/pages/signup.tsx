@@ -3,7 +3,6 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client";
 
 import { ADMIN_SIGNUP } from "../utils/crud/Mutation";
-import AuthService from "@/utils/auth/auth";
 
 export default function SignupPage() {
     const [username, setUsername] = useState("");
@@ -26,7 +25,6 @@ export default function SignupPage() {
     const btnClickHandler = async () => {
         try {
             createAdmin({ variables: { username, password, adminPassword } });
-            AuthService.login(data?.createAdmin.token);
         } catch (err) {
             console.error("Error creating admin:", err);
         }

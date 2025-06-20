@@ -76,7 +76,6 @@ const resolvers = {
         signup: async (_: any, args: signupArgs, {res}:Context) => {
             const user = await User.create(args);
             const token = signToken(user);
-            sendCookie(res, token);
             return { token, user };
         },
         login: async (_: any, { username, password }: signupArgs, {res}:Context) => {
@@ -89,8 +88,7 @@ const resolvers = {
                 throw new GraphQLError('Incorrect password');
             }
             const token = signToken(user);
-            sendCookie(res, token, true);
-            return { token, user };
+            return { user, token };
         },
         createAdmin: async (_: any, { adminPassword, username, password }: AdminArgs) => {
             if (adminPassword == process.env.ADMIN_PASSWORD) {

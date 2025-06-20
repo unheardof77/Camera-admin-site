@@ -4,7 +4,8 @@ import type { AppProps } from 'next/app';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import  createUploadLink  from 'apollo-upload-client/createUploadLink.mjs';
-import { StateProvider } from '@/utils/globalState/GlobalState';
+
+import { SessionProvider } from 'next-auth/react';
 
 
 const createApolloClient = (cache = {}) => {
@@ -23,17 +24,17 @@ const createApolloClient = (cache = {}) => {
     })
 }
 
-export default function MyApp({Component, pageProps}: AppProps) {
+export default function MyApp({Component, pageProps:{session, ...pageProps}}: AppProps) {
     
     
 
     return (
         <ApolloProvider client={createApolloClient()}>
-            <StateProvider>
+            <SessionProvider session={session}>
                 <Layout>
                     <Component {...pageProps} />
                 </Layout>
-            </StateProvider>
+            </SessionProvider>
         </ApolloProvider>
     )
 };
