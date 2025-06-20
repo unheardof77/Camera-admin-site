@@ -15,12 +15,8 @@ const createApolloClient = (cache = {}) => {
             uri: "http://localhost:4000/graphql",
             headers: {
                 "Apollo-Require-Preflight": "true",
-            },
-            fetchOptions:{
-                credentials:"include"
             }
-        }),
-        credentials:'include'
+        })
     })
 }
 

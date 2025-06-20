@@ -11,9 +11,6 @@ import connec from '../config/connection';
 import mongoose from 'mongoose';
 
 
-import { sendCookie } from '../utils/auth';
-
-
 const resolvers = {
     Upload: GraphQLUpload,
     Query: {
@@ -70,7 +67,7 @@ const resolvers = {
                 arrOfFilenames.push(doc.filename);
             }
             return arrOfFilenames;
-        }, 
+        },
     },
     Mutation: {
         signup: async (_: any, args: signupArgs, {res}:Context) => {

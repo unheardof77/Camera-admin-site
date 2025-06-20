@@ -8,6 +8,7 @@ declare module "next-auth" {
             groupId: string
             isOrgOwner: boolean
         }
+        authToken:string
     }
     interface User {
         _id: string 

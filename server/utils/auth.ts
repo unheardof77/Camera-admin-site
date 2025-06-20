@@ -36,44 +36,30 @@ const routeAuthHelper = (operationname:string, loggedIn:boolean)=>{
 
 export const authMiddleware = function ({ req, res }: authMiddlewareProp) {
     const operationName = req.body.operationName;
+    let sentToken = req.body?.variables?.authToken;
     let userData;
-    let cookie = req.cookies.authCookie;
     let loggedIn = false;
-    console.log("cookie", cookie)
-    if(cookie){
-        cookie = cookie.split(' ').pop().trim();
+    console.log("token", sentToken)
+    if(sentToken){
+        sentToken = sentToken.split(' ').pop().trim();
     } 
     try {
-        const {data}:any = jwt.verify(cookie, secret, {maxAge: expiration})
+        const {data}:any = jwt.verify(sentToken, secret, {maxAge: expiration})
         userData = data;
         loggedIn = true;
     } catch(err){
         console.error('invalid token', err);
         loggedIn = false;
     }
+
     if(routeAuthHelper(operationName, loggedIn)){
-        return {req, res, userData};
+        return {req, res, userData}; 
     }else {
-        throw new GraphQLError("Route is protected.")
+        throw new GraphQLError("Route is protected, Please log in.")
     }
+
     
-}
-
-export const sendCookie = function(res:any, token:string, logThemIn:boolean = false){
-    res.cookie('authCookie', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
-    })
-
-    if(logThemIn){
-        res.cookie('loggedIn', true, {
-            httpOnly: false,
-            secure:false, 
-            expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
-        })
-    }
+    
 }
 
 
