@@ -87,6 +87,16 @@ const resolvers = {
             const token = signToken(user);
             return { user, token };
         },
+        adminLogin: async (_: any, { username, password }: signupArgs)=>{
+            const admin = await Admin.findOne({username});
+            if(!admin){
+                throw new GraphQLError('No admin found');
+            }
+            const correctPw = await admin.isCorrectPassword(password);
+            if(!correctPw) throw new GraphQLError('No admin found!');
+            const token = signToken({...admin, isOrgOwner: true});
+            return {token, admin}
+        },
         createAdmin: async (_: any, { adminPassword, username, password }: AdminArgs) => {
             if (adminPassword == process.env.ADMIN_PASSWORD) {
                 const admin = await Admin.create({ username, password });

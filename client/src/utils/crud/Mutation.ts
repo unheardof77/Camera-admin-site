@@ -21,6 +21,17 @@ mutation Login($username: String!, $password: String!) {
   }
 }
 `
+export const ADMIN_LOGIN =`
+mutation admin_Login($username: String!, $password: String!) {
+  adminLogin(username: $username, password: $password) {
+    token
+    admin {
+      username
+      isAdmin
+    }
+  }
+}
+`
 
 export const ADMIN_SIGNUP = gql`
     mutation Admin_Signup($username: String!, $password: String!, $adminPassword: String!) {

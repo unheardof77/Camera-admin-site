@@ -9,6 +9,19 @@ export default function Header() {
     const {data: session} = useSession();
 
     const whatLinks = () =>{
+
+        if(session?.user.isAdmin){
+            return(
+                <>
+                    <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
+                    <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
+                    <li><Link href="/createOrgOwner" className="hover:text-gray-300">Create Organization Owner</Link></li>
+                    <li><button onClick={()=> signOut()} >log out</button></li>
+                </>
+            )
+        }
+        console.log(session);
         if(session && session?.user?.isOrgOwner){
             return(
                 <>

@@ -33,6 +33,10 @@ adminSchema.method('isCorrectPassword', async function isCorrectPassword(passwor
     return await bcrypt.compare(password, this.password);
 });
 
+adminSchema.virtual('isAdmin').get(function(){
+    return true
+})
+
 const Admin = model<AdminInt, AdminModel>('Admin', adminSchema);
 
 export default Admin;

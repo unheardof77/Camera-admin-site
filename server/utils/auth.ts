@@ -24,6 +24,7 @@ const routeAuthHelper = (operationname:string, loggedIn:boolean)=>{
     }else{//non-protected routes
         switch(operationname){
             case "Login": allowUserThrough = true; break;
+            case "admin_Login": allowUserThrough = true; break;
             case "Admin_Signup": allowUserThrough = true; break;
             default: allowUserThrough = false;
         }

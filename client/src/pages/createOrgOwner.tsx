@@ -2,12 +2,15 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client";
 import { CREATE_ORG_OWNER } from "../utils/crud/Mutation";
 import { create } from "domain";
+import { useSession } from "next-auth/react";
 
 export default function CreateOrgOwnerPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [orgName, setOrgName] = useState("");
     const [createOrgOwner, { data, loading, error }] = useMutation(CREATE_ORG_OWNER);
+
+    const {data:session} = useSession();
 
     const changeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -23,7 +26,7 @@ export default function CreateOrgOwnerPage() {
     const btnClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            await createOrgOwner({ variables: { username, password, orgName } });
+            await createOrgOwner({ variables: { username, password, orgName, authToken:session?.authToken } });
         } catch (err) {
             console.error("Error creating organization owner:", err);
         }
