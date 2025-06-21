@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useMutation } from "@apollo/client";
-import { CREATE_ORG_OWNER } from "../utils/crud/Mutation";
-import { create } from "domain";
+import { CREATE_ORG_OWNER } from "../../utils/crud/Mutation";
 import { useSession } from "next-auth/react";
 
 export default function CreateOrgOwnerPage() {
@@ -10,7 +9,8 @@ export default function CreateOrgOwnerPage() {
     const [orgName, setOrgName] = useState("");
     const [createOrgOwner, { data, loading, error }] = useMutation(CREATE_ORG_OWNER);
 
-    const {data:session} = useSession();
+    const {data:session, status} = useSession();
+    if(status === "unauthenticated")return <h1>You must login first.</h1>
 
     const changeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

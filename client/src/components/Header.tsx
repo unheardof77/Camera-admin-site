@@ -14,9 +14,9 @@ export default function Header() {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
-                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
-                    <li><Link href="/createOrgOwner" className="hover:text-gray-300">Create Organization Owner</Link></li>
+                    <li><Link href="/api/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/view/videos" className="hover:text-gray-300">Videos</Link></li>
+                    <li><Link href="/create/orgowner" className="hover:text-gray-300">Create Organization Owner</Link></li>
                     <li><button onClick={()=> signOut()} >log out</button></li>
                 </>
             )
@@ -26,9 +26,9 @@ export default function Header() {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/upload" className="hover:text-gray-300">Upload</Link></li>
-                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
-                    <li><Link href="/createEmployees" className="hover:text-gray-300">Create Employees</Link></li>
+                    <li><Link href="/api/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/view/videos" className="hover:text-gray-300">Videos</Link></li>
+                    <li><Link href="/create/employees" className="hover:text-gray-300">Create Employees</Link></li>
                     <li><button onClick={()=> signOut()} >log out</button></li>
                 </>
             )
@@ -36,7 +36,7 @@ export default function Header() {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/allVideos" className="hover:text-gray-300">Videos</Link></li>
+                    <li><Link href="/view/videos" className="hover:text-gray-300">Videos</Link></li>
                     <li><button onClick={()=> signOut()} >log out</button></li>
                 </>
             )
@@ -53,7 +53,7 @@ export default function Header() {
     return (
         <header className="bg-gray-900 text-white px-6 py-4 shadow-md">
             <nav className="flex items-center justify-between">
-                <h1 className="text-xl sm:text-2xl font-semibold">Welcome, Authorized User</h1>
+                <h1 className="text-xl sm:text-2xl font-semibold">{session?.user?.username ? session.user.username: "Welcome"}</h1>
                 <div className="sm:hidden">
                     <button onClick={() => setMenuOpen(!menuOpen)}>
                         {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

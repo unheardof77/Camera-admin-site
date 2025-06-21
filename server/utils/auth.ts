@@ -37,7 +37,7 @@ const routeAuthHelper = (operationname:string, loggedIn:boolean)=>{
 
 export const authMiddleware = function ({ req, res }: authMiddlewareProp) {
     const operationName = req.body.operationName;
-    let sentToken = req.body?.variables?.authToken;
+    let sentToken = req.body?.variables?.authToken ||"";
     let userData;
     let loggedIn = false;
     console.log("token", sentToken)
