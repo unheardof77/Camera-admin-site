@@ -13,7 +13,7 @@ export default function FileCard({filename, uniqueId}:FileCardProp){
         <div className="bg-white rounded-2xl shadow p-4 hover:shadow-lg transition duration-300">
             <Link
                 key={uniqueId}
-                href={`/video/${filename}`}
+                href={`/view/video/${filename}`}
                 className="block text-blue-600 hover:underline font-medium text-lg truncate"
             >
                 {filename}

@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import { useMutation } from "@apollo/client";
 import { CREATE_EMPLOYEE_LOGIN } from "@/utils/crud/Mutation";
+import { useSession } from "next-auth/react";
 
 export default function CreateEmployeesPage(){
     const [empUser, setEmpUser] = useState<string>("");
     const [empPass, setEmpPass] = useState<string>("");
     const [firstIt, setFirstIt] = useState<boolean>(true);
 
-    const [createEmployeeLogin, {loading, error, data}] = useMutation(CREATE_EMPLOYEE_LOGIN, {variables: {username: empUser, password: empPass}});
+    const {data: session, status} = useSession();
+
+
+    const [createEmployeeLogin, {loading, error, data}] = useMutation(CREATE_EMPLOYEE_LOGIN);
 
 
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,11 +29,15 @@ export default function CreateEmployeesPage(){
         try {
             if(!empPass || !empUser){ console.error("Username and password are required."); return; }
                 
-            await createEmployeeLogin();
+            await createEmployeeLogin({variables: {username: empUser, password: empPass, authToken:session?.authToken}});
+            setFirstIt(false);
         }catch (err){
             console.error("Error creating employee login:", err);
         }
     }
+
+    if(status === "unauthenticated")return <h1>You must login first.</h1>
+    if(error)console.error(error.message);
 
     return (
         <div className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto mt-8">
