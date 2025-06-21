@@ -6,12 +6,15 @@ import { GET_VIDEO_BY_NAME } from "@/utils/crud/Query";
 import { useEffect, useState } from "react";
 
 import VideoRender from "@/components/VideoRender";
+import { useSession } from "next-auth/react";
 
 export default function VideoPage() {
+    const {data: session} = useSession();
     const router = useRouter();
     const { videoName } = router.query;
     console.log(videoName);
-    const { loading, error, data } = useQuery(GET_VIDEO_BY_NAME, { variables: { filename: videoName } });
+    
+    const { loading, error, data } = useQuery(GET_VIDEO_BY_NAME, { variables: { filename: videoName, authToken:session?.authToken } });
 
 
     return (

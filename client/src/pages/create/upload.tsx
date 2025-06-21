@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 
 
 export default function UploadPage() {
-    const { status } = useSession();
+    const {status} = useSession();
 
     if (status === "authenticated") {
         return (

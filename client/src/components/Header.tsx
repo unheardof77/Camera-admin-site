@@ -14,7 +14,7 @@ export default function Header() {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/api/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/create/upload" className="hover:text-gray-300">Upload</Link></li>
                     <li><Link href="/view/videos" className="hover:text-gray-300">Videos</Link></li>
                     <li><Link href="/create/orgowner" className="hover:text-gray-300">Create Organization Owner</Link></li>
                     <li><button onClick={()=> signOut()} >log out</button></li>
@@ -26,7 +26,7 @@ export default function Header() {
             return(
                 <>
                     <li><Link href="/" className="hover:text-gray-300">Home</Link></li>
-                    <li><Link href="/api/upload" className="hover:text-gray-300">Upload</Link></li>
+                    <li><Link href="/create/upload" className="hover:text-gray-300">Upload</Link></li>
                     <li><Link href="/view/videos" className="hover:text-gray-300">Videos</Link></li>
                     <li><Link href="/create/employees" className="hover:text-gray-300">Create Employees</Link></li>
                     <li><button onClick={()=> signOut()} >log out</button></li>

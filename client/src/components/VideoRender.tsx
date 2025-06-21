@@ -2,6 +2,10 @@
 
 
 export default function VideoRender({ vidStr }: { vidStr: string }) {
+
+    if(!vidStr){
+        return<h1>Error</h1>
+    }
     const buf = Buffer.from(vidStr, 'base64');
     const blob = new Blob([buf], { type: 'video/mp4' });
     const videoUrl = URL.createObjectURL(blob);

@@ -9,7 +9,7 @@ db.once('open', async ()=>{
         await User.deleteMany({});
         await Group.deleteMany({});
         await Admin.deleteMany({});
-        console.log("Deleted Users")
+        console.log("Deleted Users, Groups, and Admins")
     } catch(err){
         console.error("something went wrong", err)
     }
