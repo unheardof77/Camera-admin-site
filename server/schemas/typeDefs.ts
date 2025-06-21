@@ -17,6 +17,7 @@ const typeDefs = `#graphql
         _id: ID
         username: String
         password: String
+        isAdmin:Boolean
         }
 
         
@@ -46,6 +47,7 @@ const typeDefs = `#graphql
     type Mutation {
         signup(username: String!, password: String!): Auth
         login(username: String!, password: String!): Auth
+        adminLogin(username: String!, password: String!):AdminAuth
         createAdmin(username: String!, password: String!, adminPassword: String!): AdminAuth
         singleUpload(file: Upload!): File!
         createOrgOwner(username: String!, password: String!, orgName: String!): User

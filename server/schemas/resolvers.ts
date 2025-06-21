@@ -11,9 +11,6 @@ import connec from '../config/connection';
 import mongoose from 'mongoose';
 
 
-import { sendCookie } from '../utils/auth';
-
-
 const resolvers = {
     Upload: GraphQLUpload,
     Query: {
@@ -70,13 +67,12 @@ const resolvers = {
                 arrOfFilenames.push(doc.filename);
             }
             return arrOfFilenames;
-        }, 
+        },
     },
     Mutation: {
         signup: async (_: any, args: signupArgs, {res}:Context) => {
             const user = await User.create(args);
             const token = signToken(user);
-            sendCookie(res, token);
             return { token, user };
         },
         login: async (_: any, { username, password }: signupArgs, {res}:Context) => {
@@ -89,8 +85,17 @@ const resolvers = {
                 throw new GraphQLError('Incorrect password');
             }
             const token = signToken(user);
-            sendCookie(res, token, true);
-            return { token, user };
+            return { user, token };
+        },
+        adminLogin: async (_: any, { username, password }: signupArgs)=>{
+            const admin = await Admin.findOne({username});
+            if(!admin){
+                throw new GraphQLError('No admin found');
+            }
+            const correctPw = await admin.isCorrectPassword(password);
+            if(!correctPw) throw new GraphQLError('No admin found!');
+            const token = signToken({...admin, isOrgOwner: true});
+            return {token, admin}
         },
         createAdmin: async (_: any, { adminPassword, username, password }: AdminArgs) => {
             if (adminPassword == process.env.ADMIN_PASSWORD) {
