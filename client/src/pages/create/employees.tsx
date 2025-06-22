@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { useMutation } from "@apollo/client";
-import { CREATE_EMPLOYEE_LOGIN } from "@/utils/crud/Mutation";
+import { CREATE_EMPLOYEE_LOGIN } from "../../utils/crud/Mutation";
 import { useSession } from "next-auth/react";
 
 export default function CreateEmployeesPage(){

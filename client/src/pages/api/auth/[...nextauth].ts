@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { LOGIN, ADMIN_LOGIN } from "@/utils/crud/Mutation";
+import { LOGIN, ADMIN_LOGIN } from "../../../utils/crud/Mutation";
 
 export const authOptions = {
     secret: process.env.AUTH_SECRET,

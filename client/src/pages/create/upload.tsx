@@ -1,4 +1,4 @@
-import UploadFile from "@/components/UploadFile"
+import UploadFile from "../../components/UploadFile"
 import { useSession } from "next-auth/react";
 
 

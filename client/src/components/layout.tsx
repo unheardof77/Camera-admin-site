@@ -1,5 +1,5 @@
 
-import '@/app/globals.css';
+import '../app/globals.css';
 import Header from './Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
