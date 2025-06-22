@@ -5,7 +5,7 @@ import { GraphQLError } from 'graphql';
 dotenv.config();
 
 const secret:any = process.env.JWT_SECRET
-const expiration = '2h';
+const expiration:any = process.env.EXPIRATION
 
 
 const routeAuthHelper = (operationname:string, loggedIn:boolean)=>{
