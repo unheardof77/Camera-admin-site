@@ -5,7 +5,7 @@ import { GET_VIDEO_BY_NAME } from "@/utils/crud/Query";
 
 import { useEffect, useState } from "react";
 
-import VideoRender from "@/components/VideoRender";
+import VideoRender from "../../../components/VideoRender";
 import { useSession } from "next-auth/react";
 
 export default function VideoPage() {

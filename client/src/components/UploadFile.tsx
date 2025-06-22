@@ -1,6 +1,6 @@
 import { useApolloClient, useMutation } from "@apollo/client"
 
-import { UPLOAD_FILE } from "@/utils/crud/Mutation";
+import { UPLOAD_FILE } from "../utils/crud/Mutation";
 import React, {useState} from "react";
 import { useSession } from "next-auth/react";
 
