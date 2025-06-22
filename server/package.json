@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node ./server.ts",
-    "seed": "npx ts-node ./migrations/seed.ts"
+    "seed": "npx ts-node ./migrations/seed.ts",
+    "build":"npx ts-node build ./server.ts"
   },
   "keywords": [],
   "author": "",
