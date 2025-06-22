@@ -4,6 +4,7 @@ export const UPLOAD_FILE = gql`
 mutation Upload($file: Upload!) {
   singleUpload(file: $file) {
     filename
+    status
   }
 }
 `

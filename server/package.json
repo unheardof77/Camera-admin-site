@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "@apollo/server": "^4.12.2",
+    "@hokify/agenda": "^6.3.0",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",

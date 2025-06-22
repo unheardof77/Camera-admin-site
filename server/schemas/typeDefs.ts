@@ -31,10 +31,9 @@ const typeDefs = `#graphql
             admin: Admin
             }
             
-        type File {
-            filename: String! 
-            mimetype: String!
-            encoding: String!
+        type upReturn {
+            filename:String
+            status:String
         }
 
     type Query {
@@ -49,7 +48,7 @@ const typeDefs = `#graphql
         login(username: String!, password: String!): Auth
         adminLogin(username: String!, password: String!):AdminAuth
         createAdmin(username: String!, password: String!, adminPassword: String!): AdminAuth
-        singleUpload(file: Upload!): File!
+        singleUpload(file: Upload!): upReturn!
         createOrgOwner(username: String!, password: String!, orgName: String!): User
         createEmployee(username: String!, password: String!): User
     }
