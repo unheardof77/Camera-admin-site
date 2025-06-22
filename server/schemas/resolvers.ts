@@ -10,6 +10,10 @@ import { GraphQLUpload } from 'graphql-upload-ts';
 import connec from '../config/connection';
 import mongoose from 'mongoose';
 
+import agenda from '../agenda';
+import path from 'path';
+import fs from 'fs'
+
 
 const resolvers = {
     Upload: GraphQLUpload,
@@ -107,27 +111,22 @@ const resolvers = {
             }
         },
         singleUpload: async (_: any, { file }: any) => {
-            const db = connec.db;
-            if (!db) {
-                throw new GraphQLError('Database connection is not established');
-            }
-            const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: "Video-files" });
+            const { createReadStream, filename } = await file;
+            const tempPath = path.join("./tempDownloads", filename);
+            const dlStatus = await new Promise(((res, rej)=>{
+                //temp download the file to server.
+                const stream = createReadStream().pipe(fs.createWriteStream(tempPath))
+                stream.on("finish", res);
+                stream.on("error", rej)
+            }))
+            await agenda.now('Store_Video',{filepath:tempPath, filename});
 
-            if (!bucket) {
-                throw new GraphQLError('GridFS bucket is not initialized');
-            }
-            const { createReadStream, filename, mimetype, encoding } = await file;
-            const stream = createReadStream();
+            if(dlStatus){
+                return {status:"success", filename};
+            } else{
+                return {status:"fail", filename};
 
-            const uploadStream = bucket.openUploadStream(filename); ``
-            stream.pipe(uploadStream);
-            uploadStream.on('error', (error: any) => {
-                throw new GraphQLError(`Error uploading file: ${error.message}`);
-            });
-            uploadStream.on('finish', (file: File) => {
-                console.log(`uploaded successfully`);
-            });
-            return { filename, mimetype, encoding }
+            }
         },
         createOrgOwner: async (_: any, { username, password, orgName }: createOrgOwnerArgs) => {
             const newGroup = await Group.create({ groupName: orgName });
