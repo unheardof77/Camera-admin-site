@@ -9,6 +9,7 @@
     "seed":"cd server && npm run seed"
   },
   "keywords": [],
+  "node":"22.0.0",
   "author": "",
   "license": "ISC",
   "dependencies": {
