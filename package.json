@@ -11,7 +11,7 @@
     "build":"concurrently \"cd client && npm run build\" \"cd server && npx tsc server.ts\""
   },
   "keywords": [],
-  "node":"22.0.0",
+  "engines": {"node": "22.0.0"},
   "author": "",
   "license": "ISC",
   "dependencies": {
