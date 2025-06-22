@@ -1,6 +1,6 @@
 
 import { useQuery } from "@apollo/client";
-import { GET_ALL_VIDEOS } from "@/utils/crud/Query";
+import { GET_ALL_VIDEOS } from "../../utils/crud/Query";
 import FileCard from "../../components/FileCard";
 import React, {useEffect}  from "react";
 import { useSession } from "next-auth/react";

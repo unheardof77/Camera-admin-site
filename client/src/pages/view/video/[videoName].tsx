@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 
-import { GET_VIDEO_BY_NAME } from "@/utils/crud/Query";
+import { GET_VIDEO_BY_NAME } from "../../../utils/crud/Query";
 
 import { useEffect, useState } from "react";
 
