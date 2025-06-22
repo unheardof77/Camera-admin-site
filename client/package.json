@@ -26,7 +26,7 @@
     "@types/apollo-upload-client": "^18.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react-dom": "^19"
 
   }
 }
