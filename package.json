@@ -8,7 +8,7 @@
     "install":"concurrently \"cd server && npm install --force\" \"cd client && npm install --force\"", 
     "seed":"cd server && npm run seed",
     "start":"concurrently \"cd server npm start\" \"cd client && npm start\"",
-    "build":"concurrently \"cd client && npm run build\" \"cd server && tsc\""
+    "build":"concurrently \"cd client && npm run build\" \"cd server && npx tsc server.ts\""
   },
   "keywords": [],
   "node":"22.0.0",
