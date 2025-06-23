@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { LOGIN, ADMIN_LOGIN } from "../../../utils/crud/Mutation";
 
+const serverURL = process.env.NSERVER || "http://localhost:4000/graphql";
+
 export const authOptions = {
     secret: process.env.AUTH_SECRET,
     providers: [
@@ -15,7 +17,7 @@ export const authOptions = {
 
             async authorize(credentials) {
                 try{
-                    const userData = await fetch('/graphql', {
+                    const userData = await fetch(serverURL, {
                         method: 'post',
                         headers: {
                             "Content-Type": "application/json"
@@ -40,7 +42,7 @@ export const authOptions = {
             },
             async authorize(credentials: any) {
                 try {
-                    const admin = await fetch('/graphql', {
+                    const admin = await fetch(serverURL, {
                         method: 'post',
                         headers: {
                             "Content-Type": "application/json"
