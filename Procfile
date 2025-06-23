@@ -1,1 +1,1 @@
-web: node server/build/server.js
+web: npm run prodstart
