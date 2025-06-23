@@ -15,7 +15,7 @@ export const authOptions = {
 
             async authorize(credentials) {
                 try{
-                    const userData = await fetch('http://localhost:4000/graphql', {
+                    const userData = await fetch('/graphql', {
                         method: 'post',
                         headers: {
                             "Content-Type": "application/json"
@@ -40,7 +40,7 @@ export const authOptions = {
             },
             async authorize(credentials: any) {
                 try {
-                    const admin = await fetch('http://localhost:4000/graphql', {
+                    const admin = await fetch('/graphql', {
                         method: 'post',
                         headers: {
                             "Content-Type": "application/json"
