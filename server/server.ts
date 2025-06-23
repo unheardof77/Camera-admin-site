@@ -36,7 +36,7 @@ async function startServer() {
     server.applyMiddleware({app, cors:corsobj});
     await db.once('open', ()=>{console.log('Connected to MongoDB')});
     await new Promise<void>(r=> app.listen({ port: port }, r));
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath.}`);
 
 }
 startServer()
