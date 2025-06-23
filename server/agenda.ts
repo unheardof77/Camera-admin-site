@@ -1,7 +1,7 @@
 import { Agenda } from "@hokify/agenda";
 import storeVideoJob from "./jobs/storevideo";
 
-const connectOptions = { db: { address: 'localhost:27017/agenda-test', collection: 'agendaJobs' } };
+const connectOptions = { db: { address: process.env.MONGODB_URI || 'localhost:27017/agenda-test', collection: 'agendaJobs' } };
 
 const agenda = new Agenda(connectOptions);
 
