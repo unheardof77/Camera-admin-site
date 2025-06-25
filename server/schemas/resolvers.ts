@@ -112,7 +112,7 @@ const resolvers = {
         },
         singleUpload: async (_: any, { file }: any) => {
             const { createReadStream, filename } = await file;
-            const tempPath = path.join("./tempDownloads", filename);
+            const tempPath = path.join(__dirname, "../tempDownloads", filename);
             const dlStatus = await new Promise(((res, rej)=>{
                 //temp download the file to server.
                 const stream = createReadStream().pipe(fs.createWriteStream(tempPath))
